@@ -1,0 +1,35 @@
+{
+    "name": "m-comscience/yii2-widget-datatables",
+    "description": "DataTables plug-in jQuery Javascript library. for Yii2 framework",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "datatables", "yii2 datatables", "widget", "yii2 widget datatables"],
+    "homepage": "https://github.com/MComScience/yii2-widget-datatables",
+    "license": "BSD-3-Clause",
+    "authors": [{
+        "name": "Tanakorn Phompak",
+        "email": "mcomsciencermu@gmail.com"
+    }],
+    "require": {
+        "bower-asset/jszip": "*",
+        "bower-asset/pdfmake": "*",
+        "bower-asset/datatables.net-bs": "*",
+        "bower-asset/datatables.net-autofill": "*",
+        "bower-asset/datatables.net-autofill-bs": "*",
+        "bower-asset/datatables.net-buttons-bs": "*",
+        "bower-asset/datatables.net-colreorder-bs": "*",
+        "bower-asset/datatables.net-fixedcolumns-bs": "*",
+        "bower-asset/datatables.net-fixedheader-bs": "*",
+        "bower-asset/datatables.net-keytable-bs": "*",
+        "bower-asset/datatables.net-responsive-bs": "*",
+        "bower-asset/datatables.net-rowgroup-bs": "*",
+        "bower-asset/datatables.net-rowreorder-bs": "*",
+        "bower-asset/datatables.net-scroller-bs": "*",
+        "bower-asset/datatables.net-select-bs": "*",
+        "kartik-v/yii2-widget-select2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mcomscience\\datatables\\": "src"
+        }
+    }
+}
