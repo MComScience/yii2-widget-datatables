@@ -26,6 +26,7 @@ class DataTables extends Widget
             $this->options['id'] = $this->getId();
         }
         DataTablesAsset::register($this->view);
+        DataTablesBootstrapAsset::register($this->view);
     }
 
     public function run()
