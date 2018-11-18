@@ -8,7 +8,7 @@ class AutoFillAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@bower/datatables-autofill';
+    public $sourcePath = '@bower/datatables.net-autofill';
 
     /**
      * @var array
