@@ -1,8 +1,7 @@
 <?php
 namespace mcomscience\datatables;
 
-use yii\base\Widget;
-use yii\bootstrap\BootstrapWidgetTrait;
+use yii\bootstrap\Widget;
 use yii\helpers\Json;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
@@ -11,8 +10,6 @@ use kartik\select2\ThemeBootstrapAsset;
 
 class DataTables extends Widget
 {
-    use BootstrapWidgetTrait;
-
     public $options = [];
 
     public $select2 = true;
@@ -38,9 +35,17 @@ class DataTables extends Widget
     {
         $view = $this->getView();
         $id = $this->options['id'];
-        $dtId = str_replace('-', '', preg_replace('/(\w+) (\d+), (\d+)/i', '', $id));
+        $widgetId = str_replace('-', '', preg_replace('/(\w+) (\d+), (\d+)/i', '', $id));
         $options = Json::htmlEncode($this->clientOptions);
-        $js = "var dt_" . $dtId . " = jQuery('#$id').$name($options);";
+        $js = "var dt_{$widgetId} = jQuery('#{$id}').{$name}({$options});";
+        $this->registerExtensions();
+        $view->registerJs($js);
+        $view->registerJs('$.fn.dataTable.ext.errMode = \'throw\';', View::POS_END);
+        $this->registerClientEvents();
+    }
+
+    protected function registerExtensions()
+    {
         if($this->extensions){
             foreach ($this->extensions as $key) {
                 $extClassname = $this->getExtensionsClass($key);
@@ -53,9 +58,6 @@ class DataTables extends Widget
             Select2Asset::register($view);
             ThemeBootstrapAsset::register($view);
         }
-        $view->registerJs($js);
-        $view->registerJs('$.fn.dataTable.ext.errMode = \'throw\';', View::POS_END);
-        $this->registerClientEvents();
     }
 
     protected function getExtensionsClass($key)
