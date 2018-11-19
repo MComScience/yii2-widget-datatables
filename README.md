@@ -69,6 +69,9 @@ DataTables::widget([
 ```
 
 Ajax data source (objects)
+<a href="https://github.com/MComScience/yii2-data-column" target="_blank">
+    yii2-data-column
+</a>
 
 Controller
 ```php
