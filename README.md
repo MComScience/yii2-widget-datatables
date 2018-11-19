@@ -69,6 +69,126 @@ DataTables::widget([
 ```
 
 Ajax data source (objects)
+
+Controller
+```php
+use mcomscience\data\DataColumn;
+use mcomscience\data\ActionColumn;
+use yii\data\ArrayDataProvider;
+
+public function ActionDataPosition()
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    $query = (new \yii\db\Query())
+        ->select([
+            'position.*',
+        ])
+        ->from('position')
+        ->all();
+    $dataProvider = new ArrayDataProvider([
+        'allModels' => $query,
+    ]);
+    // or
+    /*
+    use yii\data\ActiveDataProvider;
+
+    $query = Position::find()->where(['status' => 1]);
+
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+        'sort' => [
+            'defaultOrder' => [
+                'created_at' => SORT_DESC,
+                'title' => SORT_ASC, 
+            ]
+        ],
+    ]);
+    */
+    $columns = Yii::createObject([
+        'class' => DataColumn::className(),
+        'dataProvider' => $dataProvider,
+        'formatter' => Yii::$app->formatter,
+        'columns' => [
+            [
+                'attribute' => 'id',
+            ],
+            [
+                'attribute' => 'name',
+            ],
+            [
+                'attribute' => 'position',
+            ],
+            [
+                'attribute' => 'salary',
+            ],
+            [
+                'attribute' => 'start_date',
+                'format' => ['date','php:d/m/Y'],
+            ],
+            [
+                'attribute' => 'office',
+            ],
+            [
+                'attribute' => 'extn',
+            ],
+            [
+                'class' => ActionColumn::className(),
+                'template' => '{view} {update} {delete}',
+                'viewOptions' => [
+                    'title' => Yii::t('yii','View'),
+                    //'label' => 'View'
+                ],
+                'updateOptions' => [
+                    'role' => 'modal-remote',
+                    'title' => Yii::t('yii','Edit'),
+                ],
+                'deleteOptions' => [
+                    'class' => 'text-danger on-delete',
+                    'title' => Yii::t('yii','Delete'),
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action == 'update') {
+                        return Url::to(['update', 'id' => $key]);
+                    }
+                    if ($action == 'delete') {
+                        return Url::to(['delete', 'id' => $key]);
+                    }
+                },
+            ],
+            /*
+            DropdownButton
+            [
+                'class' => ActionColumn::className(),
+                'template' => '{view} {btn1}',
+                'dropdown' => true,
+                'dropdownButton' => [
+                    'label' => 'Actions',
+                    'class' => 'btn btn-success'
+                ],
+                'viewOptions' => [
+                    'role' => 'modal-remote',
+                    'title' => 'Detail',
+                    'label' => 'Detail',
+                ],
+                'buttons' => [
+                    'btn1' => function ($url, $model, $key) {
+                        return Html::tag('li', Html::a('Add', $url, ['data-pjax' => 0]));
+                    },
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action == 'view') {
+                        return Url::to(['view', 'id' => $key]);
+                    }
+                },
+            ],
+            */
+        ],
+    ]);
+    return ['data' => $columns->renderDataColumns()];
+}
+```
+
+View
 ```php
 use mcomscience\datatables\DataTables;
 // data source
@@ -93,7 +213,7 @@ DataTables::widget([
     ],
     'clientOptions' => [
         "ajax" => [
-            "url" => "data-source",
+            "url" => "data-position",
             "type" => "GET",
         ],
         "deferRender" => true,
@@ -244,4 +364,30 @@ DataTables::widget([
     ],
 ]);
 ?>
+```
+
+Usage Bootstrap Table widget 
+<a href="https://github.com/MComScience/yii2-widget-bootstrap-table" target="_blank">
+    yii2-widget-bootstrap-table
+</a>
+
+```php
+use mcomscience\bstable\BootstrapTable;
+echo BootstrapTable::widget([
+    'tableOptions' => ['class' => 'table table-hover table-striped','id' => 'tb-example'],
+    // ... options
+    'datatableOptions' => [
+        "clientOptions" => [
+            "responsive" => true,
+            "autoWidth" => false,
+            "deferRender" => true,
+        ],
+        'clientEvents' => [
+            'error.dt' => 'function ( e, settings, techNote, message ){
+                e.preventDefault();
+                console.error(message);
+            }'
+        ]
+    ],
+]);
 ```
