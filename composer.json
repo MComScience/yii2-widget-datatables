@@ -26,8 +26,8 @@
         "bower-asset/datatables.net-scroller-bs": "*",
         "bower-asset/datatables.net-select-bs": "*",
         "kartik-v/yii2-widget-select2": "*",
-        "mcomscience/yii2-widget-bootstrap-table": "@dev",
-        "mcomscience/yii2-data-column": "@dev"
+        "mcomscience/yii2-widget-bootstrap-table": "*",
+        "mcomscience/yii2-data-column": "*"
     },
     "autoload": {
         "psr-4": {
