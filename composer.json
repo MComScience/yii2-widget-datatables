@@ -25,9 +25,7 @@
         "bower-asset/datatables.net-rowreorder-bs": "*",
         "bower-asset/datatables.net-scroller-bs": "*",
         "bower-asset/datatables.net-select-bs": "*",
-        "kartik-v/yii2-widget-select2": "*",
-        "mcomscience/yii2-widget-bootstrap-table": "*",
-        "mcomscience/yii2-data-column": "*"
+        "kartik-v/yii2-widget-select2": "*"
     },
     "autoload": {
         "psr-4": {
