@@ -46,6 +46,7 @@ class DataTables extends Widget
 
     protected function registerExtensions()
     {
+    	$view = $this->getView();
         if($this->extensions){
             foreach ($this->extensions as $key) {
                 $extClassname = $this->getExtensionsClass($key);
